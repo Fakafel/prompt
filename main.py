@@ -15,7 +15,7 @@ LOG_CHANNEL_ID = 1487218761013661918
 
 @client.event
 async def on_ready():
-    print("The Ghost of Thompson has arrived. Behave yourselves.")
+    print("Behave yourselves.")
 @client.event
 async def on_member_update(before, after):
     # Check if their timeout status changed
