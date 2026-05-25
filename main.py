@@ -14,6 +14,9 @@ client = discord.Client(intents=intents)
 LOG_CHANNEL_ID = 1487218761013661918 
 
 @client.event
+async def on_ready():
+    print("The Ghost of Thompson has arrived. Behave yourselves.")
+@client.event
 async def on_member_update(before, after):
     # Check if their timeout status changed
     if before.timed_out_until != after.timed_out_until:
