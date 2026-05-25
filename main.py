@@ -5,30 +5,32 @@ import discord
 import os
 
 intents = discord.Intents.default()
-intents.members = True  # Required to see user updates
+intents.members = True  # Matches the toggle you switched in the portal
 
 client = discord.Client(intents=intents)
 
-@client.event
-
+# Replace this with the actual ID of the Discord channel where you want messages to post
+# (Right-click a channel in Discord and select "Copy Channel ID")
+LOG_CHANNEL_ID = 1487218761013661918 
 
 @client.event
 async def on_member_update(before, after):
-    # Check if the user's timeout status changed
-    # 'timed_out_until' is None if they are not timed out
+    # Check if their timeout status changed
     if before.timed_out_until != after.timed_out_until:
+        channel = client.get_channel(LOG_CHANNEL_ID)
+        if not channel:
+            print("Error: Could not find the specified channel ID.")
+            return
+
         if after.timed_out_until is not None:
-            print(f"{after.name} has been sealed.")
+            message = f"{after.mention} has been sealed."
+            print(message)  # Prints to GitHub terminal
+            await channel.send(message)  # Sends directly into your Discord server
         else:
-            print(f"{after.name} has been unsealed")
+            message = f"{after.mention} has been unsealed."
+            print(message)
+            await channel.send(message)
 
-# Run the bot using your secure token
+# Run the bot
 client.run(os.environ.get("DISCORD_BOT_TOKEN"))
-
-
-
-
-
-
-
 
