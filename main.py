@@ -11,7 +11,7 @@ intents.members = True
 # 2. CREATE THE CLIENT VARIABLE (Make sure this line is exactly here!)
 client = discord.Client(intents=intents)
 
-LOG_CHANNEL_ID = 123456789012345678 
+LOG_CHANNEL_ID = 1487218761013661918
 
 # 3. YOUR EVENT LISTENER
 @client.event
