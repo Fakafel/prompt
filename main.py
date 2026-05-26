@@ -4,36 +4,27 @@
 import discord
 import os
 
+# 1. SETUP INTENTS
 intents = discord.Intents.default()
-intents.members = True  # Matches the toggle you switched in the portal
+intents.members = True 
 
+# 2. CREATE THE CLIENT VARIABLE (Make sure this line is exactly here!)
 client = discord.Client(intents=intents)
 
-# Replace this with the actual ID of the Discord channel where you want messages to post
-# (Right-click a channel in Discord and select "Copy Channel ID")
-LOG_CHANNEL_ID = 1487218761013661918 
+LOG_CHANNEL_ID = 123456789012345678 
 
-@client.event
-async def on_ready():
-    print("Behave yourselves.")
+# 3. YOUR EVENT LISTENER
 @client.event
 async def on_member_update(before, after):
-    # Check if their timeout status changed
     if before.timed_out_until != after.timed_out_until:
         channel = client.get_channel(LOG_CHANNEL_ID)
         if not channel:
-            print("Error: Could not find the specified channel ID.")
             return
 
         if after.timed_out_until is not None:
-            message = f"{after.mention} has been sealed."
-            print(message)  # Prints to GitHub terminal
-            await channel.send(message)  # Sends directly into your Discord server
+            await channel.send(f"{after.mention} has been sealed, decisions have consequences young one.")
         else:
-            message = f"{after.mention} has been unsealed."
-            print(message)
-            await channel.send(message)
+            await channel.send(f"{after.mention} has been unsealed. Behave yourself.")
 
-# Run the bot
+# 4. RUN THE CLIENT (This looks for the variable created in step 2)
 client.run(os.environ.get("DISCORD_BOT_TOKEN"))
-
